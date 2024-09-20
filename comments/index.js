@@ -1,15 +1,17 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { randomBytes } from "crypto";
+import cors from "cors";
 
 // 15. Implementing a Comments Service
 
 const app = express();
 // bodyParser.json() ミドルウェアを使用します。
 app.use(bodyParser.json());
+app.use(cors());
 
-// post の id により、関連づけられた comments を探します。
-// comment は {id: string,content: string} です。
+// post の id により、関連づけられた comments を保持します。
+// comment の型は {id: string,content: string} です。
 const commentsByPostId = {};
 
 // id は post の id です。その post に comment が関連づけられます。
@@ -35,7 +37,7 @@ app.post("/posts/:id/comments", (req, res) => {
   // これにより、新しいコメントを含む更新されたコメントリストが、指定された投稿IDに関連付けられて保存されます。
   commentsByPostId[req.params.id] = comments;
 
-  res.status(200).send(comments);
+  res.status(201).send(comments);
 });
 
 app.listen(4001, () => {

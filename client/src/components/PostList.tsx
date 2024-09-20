@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import CommentCreate from "@/components/CommentCreate";
 
 // 22. Fetching and Rendering Posts
 
@@ -32,6 +33,10 @@ const PostList = () => {
           <CardHeader>
             <p>{post.title}</p>
           </CardHeader>
+          <CardBody>
+            {/* この post.id を comment に関連づけます。 */}
+            <CommentCreate postId={post.id} />
+          </CardBody>
         </Card>
       ))}
     </div>
