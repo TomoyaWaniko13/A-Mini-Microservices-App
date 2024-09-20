@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import { randomBytes } from "crypto";
 
+// 15. Implementing a Comments Service
+
 const app = express();
 // bodyParser.json() ミドルウェアを使用します。
 app.use(bodyParser.json());

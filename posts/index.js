@@ -2,6 +2,8 @@ import express from "express";
 import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
 
+// 13. Posts Service Creation
+
 const app = express();
 // bodyParser.json() ミドルウェアを使用します。
 app.use(bodyParser.json());
