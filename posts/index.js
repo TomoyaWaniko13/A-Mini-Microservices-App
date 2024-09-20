@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 const app = express();
 // bodyParser.json() ミドルウェアを使用します。
 app.use(bodyParser.json());
+
 // 仮のデータベースとして使用します。
 const posts = {};
 
@@ -22,6 +23,7 @@ app.post("/posts", (req, res) => {
   posts[id] = { id, title };
 
   // 201 Created
+  // id に関連づけられた title を send() します。
   res.status(201).send(posts[id]);
 });
 
