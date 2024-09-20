@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 const posts = {};
 
 app.get("/posts", (req, res) => {
+  console.log(posts);
   res.send(posts);
 });
 
@@ -23,7 +24,7 @@ app.post("/posts", (req, res) => {
   posts[id] = { id, title };
 
   // 201 Created
-  // id に関連づけられた title を send() します。
+  // id に関連づけられた id と title を send() します。
   res.status(201).send(posts[id]);
 });
 
