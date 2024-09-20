@@ -14,13 +14,15 @@ app.get("/posts", (req, res) => {
 
 app.post("/posts", (req, res) => {
   // id は key として使われます。
-  const id = randomBytes(4).toString();
+  const id = randomBytes(4).toString("hex");
 
   const { title } = req.body;
 
+  // id と title を保存します。
   posts[id] = { id, title };
 
-  res.status(200).send(posts[id]);
+  // 201 Created
+  res.status(201).send(posts[id]);
 });
 
 app.listen(4000, () => {
