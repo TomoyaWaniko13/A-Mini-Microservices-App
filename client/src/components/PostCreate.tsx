@@ -8,14 +8,14 @@ import axios from "axios";
 // 20. Building Post Submission
 
 const PostCreate = () => {
-  const [title, setTitle] = useState<string>();
+  const [title, setTitle] = useState<string>("");
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     //   通常、フォームが送信されると、ページが再読み込みされたり、別のページに遷移したりします。
     //   preventDefault() メソッドはこの動作を止めます。
     event.preventDefault();
     console.log(event);
-    await axios.post("http//localhost:4000/posts", { title });
+    await axios.post("http://localhost:4000/posts", { title });
     setTitle("");
   };
 

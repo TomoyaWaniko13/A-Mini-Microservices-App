@@ -1,12 +1,15 @@
 import express from "express";
 import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 // 13. Posts Service Creation
+// 21. Handling CORS Errors
 
 const app = express();
-// bodyParser.json() ミドルウェアを使用します。
+
 app.use(bodyParser.json());
+app.use(cors());
 
 // 仮のデータベースとして使用します。
 const posts = {};
