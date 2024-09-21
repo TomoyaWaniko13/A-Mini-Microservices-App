@@ -15,21 +15,21 @@ app.use(cors());
 const posts = {};
 
 app.get("/posts", (req, res) => {
-  console.log(posts);
   res.send(posts);
 });
 
 app.post("/posts", (req, res) => {
-  // id は key として使われます。
+  // post の id を作ります。
   const id = randomBytes(4).toString("hex");
 
+  // post の title を request から取得します。
   const { title } = req.body;
 
-  // id と title を保存します。
+  // post の id と title を保存します。
   posts[id] = { id, title };
 
   // 201 Created
-  // id に関連づけられた id と title を send() します。
+  // post の id に関連づけられた id と title を send() します。
   res.status(201).send(posts[id]);
 });
 

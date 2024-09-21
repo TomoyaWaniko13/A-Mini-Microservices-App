@@ -8,14 +8,14 @@ type Props = {
   postId: string;
 };
 
-// この post.id を comment に関連づけます。
+// この postId を comment に関連づけます。
 const CommentCreate = ({ postId }: Props) => {
   const [content, setContent] = useState("");
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // この post.id を comment に関連づけます。
+    // この postId を comments に関連づけます。
     await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
       content,
     });

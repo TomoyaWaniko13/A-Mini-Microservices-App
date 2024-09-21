@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import CommentCreate from "@/components/CommentCreate";
+import CommentList from "@/components/CommentList";
 
 // 22. Fetching and Rendering Posts
 
@@ -27,14 +28,15 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className={"grid grid-cols-4 h-48 gap-3"}>
+    <div className={"grid grid-cols-4 grid-rows-3 gap-3"}>
       {Object.values(posts).map((post) => (
         <Card key={post.id}>
           <CardHeader>
-            <p>{post.title}</p>
+            <p className={"text-2xl"}>{post.title}</p>
           </CardHeader>
-          <CardBody>
-            {/* この post.id を comment に関連づけます。 */}
+          <CardBody className={"gap-4"}>
+            {/* この post.id を comments に関連づけます。 */}
+            <CommentList postId={post.id} />
             <CommentCreate postId={post.id} />
           </CardBody>
         </Card>
