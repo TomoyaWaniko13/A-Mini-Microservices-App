@@ -2,9 +2,11 @@ import express from "express";
 import { randomBytes } from "crypto";
 import bodyParser from "body-parser";
 import cors from "cors";
+import axios from "axios";
 
 // 13. Posts Service Creation
 // 21. Handling CORS Errors
+// 32. Emitting Events
 
 const app = express();
 
@@ -18,7 +20,7 @@ app.get("/posts", (req, res) => {
   res.send(posts);
 });
 
-app.post("/posts", (req, res) => {
+app.post("/posts", async (req, res) => {
   // post の id を作ります。
   const id = randomBytes(4).toString("hex");
 
@@ -27,6 +29,11 @@ app.post("/posts", (req, res) => {
 
   // post の id と title を保存します。
   posts[id] = { id, title };
+
+  axios.post("http://localhost:4005/events", {
+    type: "PostCreated",
+    data: { id, title },
+  });
 
   // 201 Created
   // post の id に関連づけられた id と title を send() します。
