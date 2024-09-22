@@ -7,6 +7,7 @@ import axios from "axios";
 // 13. Posts Service Creation
 // 21. Handling CORS Errors
 // 32. Emitting Events
+// 34. Receiving Events
 
 const app = express();
 
@@ -30,14 +31,19 @@ app.post("/posts", async (req, res) => {
   // post の id と title を保存します。
   posts[id] = { id, title };
 
-  axios.post("http://localhost:4005/events", {
+  // event bus に event を送信します。
+  await axios.post("http://localhost:4005/events", {
     type: "PostCreated",
     data: { id, title },
   });
 
-  // 201 Created
-  // post の id に関連づけられた id と title を send() します。
+  //  201 Created: post の id に関連づけられた id と title を send() します。
   res.status(201).send(posts[id]);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Received Event", req.body.type);
+  res.send({});
 });
 
 app.listen(4000, () => {
