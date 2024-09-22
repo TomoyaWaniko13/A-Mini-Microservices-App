@@ -42,6 +42,7 @@ app.post("/posts", async (req, res) => {
 });
 
 app.post("/events", (req, res) => {
+  // event bus から 通知を受け取ります。
   console.log("Received Event", req.body.type);
   res.send({});
 });

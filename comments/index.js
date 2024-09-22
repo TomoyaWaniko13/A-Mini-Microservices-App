@@ -22,7 +22,7 @@ app.get("/posts/:id/comments", (req, res) => {
   res.send(commentsByPostId[req.params.id] || []);
 });
 
-// :id は post の id です。その post に   comment が関連づけられます。
+// :id は post の id です。その post に comment が関連づけられます。
 app.post("/posts/:id/comments", async (req, res) => {
   // comment の id を作ります。
   const commentId = randomBytes(4).toString("hex");
@@ -55,6 +55,7 @@ app.post("/posts/:id/comments", async (req, res) => {
 });
 
 app.post("/events", (req, res) => {
+  // event bus から 通知を受け取ります。
   console.log("Event Received:", req.body.type);
   res.send({});
 });
