@@ -32,7 +32,7 @@ const PostList = () => {
       {Object.values(posts).map((post) => (
         <Card key={post.id}>
           <CardHeader>
-            <p className={"text-2xl"}>{post.title}</p>
+            <p className={"text-2xl font-bold"}>{post.title}</p>
           </CardHeader>
           <CardBody className={"gap-4"}>
             {/* この post.id を comments に関連づけます。 */}
