@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import CommentList from "@/components/CommentList";
+import CommentCreate from "@/components/CommentCreate";
 
 // 22. Fetching and Rendering Posts
 // 37. Using the Query Service
@@ -46,7 +47,7 @@ const PostList = () => {
           </CardHeader>
           <CardBody className={"gap-4"}>
             <CommentList comments={post.comments} />
-            {/*<CommentCreate comments={post.comments} />*/}
+            <CommentCreate postId={post.id} />
           </CardBody>
         </Card>
       ))}

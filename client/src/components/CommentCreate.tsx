@@ -8,7 +8,7 @@ type Props = {
   postId: string;
 };
 
-// この postId を comment に関連づけます。
+// この postId を comment に関連づけて、Posts Service に追加します。
 const CommentCreate = ({ postId }: Props) => {
   const [content, setContent] = useState("");
 
