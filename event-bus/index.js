@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import axios from "axios";
 
 // 31. A Basic Event Bus Implementation
+// 45. Handling Moderation
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,15 +17,14 @@ app.post("/events", (req, res) => {
     console.log(err.message);
   });
 
-  // event は送信されるデータです。
-  // http://localhost:4001/events は リクエストの送信先の URL です。
   axios.post("http://localhost:4001/events", event).catch((err) => {
     console.log(err.message);
   });
 
-  // event は送信されるデータです。
-  // http://localhost:4002/events は リクエストの送信先の URL です。
   axios.post("http://localhost:4002/events", event).catch((err) => {
+    console.log(err.message);
+  });
+  axios.post("http://localhost:4003/events", event).catch((err) => {
     console.log(err.message);
   });
 
