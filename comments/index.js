@@ -7,6 +7,7 @@ import axios from "axios";
 // 15. Implementing a Comments Service
 // 33. Emitting Comment Creation Events
 // 34. Receiving Events
+// 43. Adding Comment Moderation
 
 const app = express();
 // bodyParser.json() ミドルウェアを使用します。
@@ -24,7 +25,7 @@ app.get("/posts/:id/comments", (req, res) => {
 
 // :id は post の id です。その post に comment が関連づけられます。
 app.post("/posts/:id/comments", async (req, res) => {
-  // comment の id を作ります。
+  // comment の ID を作ります。
   const commentId = randomBytes(4).toString("hex");
 
   // comment の content を取得します。
@@ -35,9 +36,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   // これにより、新しい投稿に対する最初のコメントでもエラーが発生しないようにしています。
   const comments = commentsByPostId[req.params.id] || [];
 
-  // 新しい comment オブジェクト {id: string, content: string} を、取得した comments 配列に追加します。
-  // この操作により、既存のコメントリストに新しいコメントが追加されます。
-  comments.push({ id: commentId, content });
+  comments.push({ id: commentId, content, status: "pending" });
 
   // 更新された comments 配列を、元の commentsByPostId オブジェクトに保存し直します。
   // これにより、新しいコメントを含む更新されたコメントリストが、指定された投稿IDに関連付けられて保存されます。
@@ -47,6 +46,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   await axios.post("http://localhost:4005/events", {
     type: "CommentCreated",
     data: { id: commentId, content, postId: req.params.id },
+    status: "pending",
   });
 
   console.log(commentsByPostId);

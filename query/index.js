@@ -29,14 +29,12 @@ app.post("/events", (req, res) => {
   }
 
   if (type === "CommentCreated") {
-    // comment の id, content と post の id を取得します。
-    const { id, content, postId } = data;
+    const { id, content, postId, status } = data;
 
     // posts 配列の post を postId で探します。
     const post = posts[postId];
 
-    // post の comments property に comment の id と content を追加します。
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
   }
 
   // event を受け取って、posts 配列に追加した結果を出力します。
