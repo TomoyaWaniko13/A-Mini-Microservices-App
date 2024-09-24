@@ -22,13 +22,8 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/posts", async (req, res) => {
-  // post の ID を作ります。
   const id = randomBytes(4).toString("hex");
-
-  // post の title を request から取得します。
   const { title } = req.body;
-
-  // post の id と title を保存します。
   posts[id] = { id, title };
 
   // event bus に event を送信します。

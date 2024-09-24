@@ -35,15 +35,9 @@ app.post("/posts/:id/comments", async (req, res) => {
   // event bus に event を送信します。
   await axios.post("http://localhost:4005/events", {
     type: "CommentCreated",
-    data: {
-      id: commentId,
-      content,
-      postId: req.params.id,
-    },
+    data: { id: commentId, content, postId: req.params.id },
     status: "pending",
   });
-
-  console.log(commentsByPostId);
 
   res.status(201).send(comments);
 });
@@ -55,12 +49,13 @@ app.post("/events", async (req, res) => {
   const { type, data } = req.body;
 
   if (type === "CommentModerated") {
-    const { postId, id, status, content } = data;
+    const { id, postId, status, content } = data;
+
     const comments = commentsByPostId[postId];
 
     // status を変更するべき comment を探します。
-    const comment = comments.find((comment) => {
-      return comment.id === id;
+    const comment = comments.find((commentElement) => {
+      return commentElement.id === id;
     });
 
     // comment の status を変更します。

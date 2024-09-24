@@ -49,9 +49,7 @@ app.get("/posts", (req, res) => {
 // event bus から event を受け取ります。
 app.post("/events", (req, res) => {
   const { type, data } = req.body;
-
   handleEvent(type, data);
-
   res.send({});
 });
 
