@@ -22,7 +22,7 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/posts", async (req, res) => {
-  // post の id を作ります。
+  // post の ID を作ります。
   const id = randomBytes(4).toString("hex");
 
   // post の title を request から取得します。
@@ -37,12 +37,12 @@ app.post("/posts", async (req, res) => {
     data: { id, title },
   });
 
-  //  201 Created: post の id に関連づけられた id と title を send() します。
+  //  201 Created: post の ID に関連づけられた id と title を send() します。
   res.status(201).send(posts[id]);
 });
 
+// event bus から event を受け取ります。
 app.post("/events", (req, res) => {
-  // event bus から 通知を受け取ります。
   console.log("Received Event", req.body.type);
   res.send({});
 });

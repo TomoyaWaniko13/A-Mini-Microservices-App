@@ -4,6 +4,7 @@ import cors from "cors";
 
 // 35. Creating the Data Query Service
 // 36. Parsing Incoming Events
+// 43. Adding Comment Moderation
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,13 +18,14 @@ app.get("/posts", (req, res) => {
   res.send(posts);
 });
 
-// event bus から event を受け取って、posts 配列に追加します。
+// event bus から event を受け取ります。
 app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
   if (type === "PostCreated") {
     // post の id, title を取得します。
     const { id, title } = data;
+
     // posts 配列の の id 番目に、post の id, title, comments: [] を追加します。
     posts[id] = { id, title, comments: [] };
   }
