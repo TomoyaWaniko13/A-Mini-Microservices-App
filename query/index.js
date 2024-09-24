@@ -1,11 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import axios from "axios";
 
 // 35. Creating the Data Query Service
 // 36. Parsing Incoming Events
 // 43. Adding Comment Moderation
 // 47. A Quick Test
+// 51. Implementing Event Sync
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,14 +17,7 @@ app.use(cors());
 // それぞれの event のデータを関連づけて、この posts 配列に追加します。
 const posts = {};
 
-app.get("/posts", (req, res) => {
-  res.send(posts);
-});
-
-// event bus から event を受け取ります。
-app.post("/events", (req, res) => {
-  const { type, data } = req.body;
-
+const handleEvent = (type, data) => {
   if (type === "PostCreated") {
     const { id, title } = data;
     posts[id] = { id, title, comments: [] };
@@ -45,13 +40,27 @@ app.post("/events", (req, res) => {
     comment.status = status;
     comment.content = content;
   }
+};
 
-  // event を受け取って、posts 配列に追加した結果を出力します。
-  console.log(posts);
+app.get("/posts", (req, res) => {
+  res.send(posts);
+});
+
+// event bus から event を受け取ります。
+app.post("/events", (req, res) => {
+  const { type, data } = req.body;
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
-app.listen(4002, () => {
+app.listen(4002, async () => {
   console.log("Listening on 4002");
+  const res = await axios.get("http://localhost:4005/events");
+
+  for (let event of res.data) {
+    console.log("Processing event: ", event.type);
+    handleEvent(event.type, event.data);
+  }
 });
